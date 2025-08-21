@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pesan Spesial</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Rubik:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --soft-pink: #ffd1dc;
+            --dark-pink: #d66565;
+            --accent-pink: #ff85a2;
+            --soft-white: #fffafa;
+            --text: #5a3d3d;
+            --card-bg: rgba(255, 255, 255, 0.9);
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            min-height: 100vh;
+            background: url(images/background.jpg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            color: var(--text);
+            position: relative;
+            overflow-x: hidden;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 600px;
+            position: relative;
+        }
+        
+        .card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 25px 45px rgba(0, 0, 0, 0.1);
+            padding: 40px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .title {
+            font-family: 'Rubik', sans-serif;
+            font-weight: 800;
+            font-size: clamp(1.8rem, 5vw, 2.5rem);
+            margin-bottom: 20px;
+            background: linear-gradient(to right, var(--dark-pink), var(--accent-pink));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .message-container {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 25px;
+            margin: 25px 0;
+            border: 2px dashed var(--accent-pink);
+            position: relative;
+            z-index: 2;
+            min-height: 150px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .message {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            color: var(--text);
+            text-align: left;
+            position: relative;
+        }
+        
+        .message span {
+            opacity: 0;
+            animation: fadeIn 0.1s forwards;
+        }
+        
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+            }
+        }
+        
+        .message::before {
+            content: """;
+            font-size: 3rem;
+            color: var(--accent-pink);
+            position: absolute;
+            top: -15px;
+            left: -10px;
+            opacity: 0.3;
+            font-family: serif;
+        }
+        
+        .options {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            position: relative;
+            z-index: 2;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.5s ease;
+        }
+        
+        .options.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .option-btn {
+            background: white;
+            border: 2px solid var(--accent-pink);
+            border-radius: 50px;
+            padding: 12px 25px;
+            color: var(--dark-pink);
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(214, 101, 101, 0.2);
+        }
+        
+        .option-btn:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 8px 20px rgba(214, 101, 101, 0.3);
+            background: var(--soft-pink);
+            color: white;
+        }
+        
+        .response-container {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 25px;
+            margin-top: 20px;
+            border-left: 5px solid var(--accent-pink);
+            text-align: left;
+            display: none;
+            position: relative;
+            z-index: 2;
+            animation: fadeIn 0.5s ease-out;
+        }
+        
+        .response {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            color: var(--text);
+        }
+        
+        .back-btn {
+            display: inline-block;
+            margin-top: 25px;
+            padding: 10px 20px;
+            background: white;
+            border: 2px solid var(--accent-pink);
+            border-radius: 50px;
+            color: var(--dark-pink);
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            position: relative;
+            z-index: 2;
+            cursor: pointer;
+        }
+        
+        .back-btn:hover {
+            background: var(--accent-pink);
+            color: white;
+            transform: translateY(-2px);
+        }
+        
+        /* Halaman kedua */
+        .page {
+            display: none;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.5s ease;
+        }
+        
+        .page.active {
+            display: block;
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* Halaman final */
+        .final-message {
+            text-align: center;
+            font-size: 1.2rem;
+            margin: 20px 0;
+            line-height: 1.6;
+        }
+        
+        .heart {
+            color: var(--dark-pink);
+            font-size: 2rem;
+            margin: 15px 0;
+            animation: pulse 1.5s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 600px) {
+            .card {
+                padding: 30px 20px;
+            }
+            
+            .options {
+                gap: 10px;
+            }
+            
+            .option-btn {
+                padding: 10px 20px;
+                font-size: 0.9rem;
+            }
+            
+            .message-container {
+                padding: 20px 15px;
+            }
+        }
+        
+        @media (max-width: 400px) {
+            .options {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .option-btn {
+                width: 80%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="card">
+            <!-- Halaman 1 - Pertanyaan Awal -->
+            <div class="page active" id="page1">
+                <h1 class="title">Pesan Spesial</h1>
+                
+                <div class="message-container">
+                    <p class="message" id="animated-message"></p>
+                </div>
+                
+                <div class="options" id="response-options">
+                    <button class="option-btn" data-response="sudah">Sudah sampai</button>
+                    <button class="option-btn" data-response="belum">Belum</button>
+                    <button class="option-btn" data-response="gapeduli">Ga peduli</button>
+                </div>
+                
+                <a href="home.html" class="back-btn">
+                    <i class="fas fa-arrow-left"></i> Kembali ke Home
+                </a>
+            </div>
+            
+            <!-- Halaman 2 untuk jawaban "sudah" -->
+            <div class="page" id="page-sudah">
+                <h1 class="title">Lanjutan</h1>
+                
+                <div class="message-container">
+                    <p class="message" id="message-sudah"></p>
+                </div>
+                
+                <div class="options" id="options-sudah">
+                    <button class="option-btn" data-final="senang">Senang</button>
+                    <button class="option-btn" data-final="biasa">Biasa aja</button>
+                </div>
+                
+                <a href="hadiah.html" class="back-btn">
+                    <i class="fas fa-arrow-left"></i> Kembali ke Hadiah
+                </a>
+            </div>
+            
+            <!-- Halaman 2 untuk jawaban "belum" -->
+            <div class="page" id="page-belum">
+                <h1 class="title">Lanjutan</h1>
+                
+                <div class="message-container">
+                    <p class="message" id="message-belum"></p>
+                </div>
+                
+                <div class="options" id="options-belum">
+                    <button class="option-btn" data-final="cepat">Cepet sampai dong</button>
+                    <button class="option-btn" data-final="santai">Santai aja</button>
+                </div>
+                
+                <a href="hadiah.html" class="back-btn">
+                    <i class="fas fa-arrow-left"></i> Kembali ke Hadiah
+                </a>
+            </div>
+            
+            <!-- Halaman 2 untuk jawaban "gapeduli" -->
+            <div class="page" id="page-gapeduli">
+                <h1 class="title">Lanjutan</h1>
+                
+                <div class="message-container">
+                    <p class="message" id="message-gapeduli"></p>
+                </div>
+                
+                <div class="options" id="options-gapeduli">
+                    <button class="option-btn" data-final="yaudah">Yaudah deh</button>
+                    <button class="option-btn" data-final="maaf">Maaf ya</button>
+                </div>
+                
+                <a href="hadiah.html" class="back-btn">
+                    <i class="fas fa-arrow-left"></i> Kembali ke Hadiah
+                </a>
+            </div>
+            
+            <!-- Halaman Final -->
+            <div class="page" id="page-final">
+                <h1 class="title">Terima Kasih!</h1>
+                
+                <div class="message-container">
+                    <p class="final-message" id="final-message"></p>
+                </div>
+                
+                <a href="hadiah.html" class="back-btn">
+                    <i class="fas fa-arrow-left"></i> Kembali ke Hadiah
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Data pertanyaan dan respons
+        const questionData = {
+            page1: {
+                message: "Apakah pesan spesial ini sudah sampai ke hatimu?",
+                options: [
+                    { id: "sudah", text: "Sudah sampai" },
+                    { id: "belum", text: "Belum" },
+                    { id: "gapeduli", text: "Ga peduli" }
+                ]
+            },
+            sudah: {
+                message: "Wah, senangnya! Apa perasaanmu saat menerima pesan ini?",
+                options: [
+                    { id: "senang", text: "Senang" },
+                    { id: "biasa", text: "Biasa aja" }
+                ]
+            },
+            belum: {
+                message: "Waduh, kenapa belum sampai ya? Apa yang harus aku lakukan?",
+                options: [
+                    { id: "cepat", text: "Cepet sampai dong" },
+                    { id: "santai", text: "Santai aja" }
+                ]
+            },
+            gapeduli: {
+                message: "Hiks, sedih deh. Apa kamu benar-benar tidak peduli?",
+                options: [
+                    { id: "yaudah", text: "Yaudah deh" },
+                    { id: "maaf", text: "Maaf ya" }
+                ]
+            },
+            final: {
+                senang: "Terima kasih sudah senang! Aku akan selalu berusaha membahagiakanmu.",
+                biasa: "Oke, lain kali akan aku buat yang lebih special lagi!",
+                cepat: "Aku akan berusaha lebih keras lagi!",
+                santai: "Baiklah, aku akan tunggu dengan sabar.",
+                yaudah: "Yaudah deh, semoga lain kali kamu lebih peduli.",
+                maaf: "Terima kasih sudah minta maaf, aku maafkan kok."
+            }
+        };
+
+        // Variabel global untuk state
+        let currentPage = "page1";
+        
+        // Fungsi untuk animasi mengetik
+        function typeWriter(text, element, speed = 50, callback = null) {
+            let i = 0;
+            element.innerHTML = ''; // Kosongkan elemen
+            
+            function type() {
+                if (i < text.length) {
+                    // Tambahkan huruf per huruf dengan span
+                    const charSpan = document.createElement('span');
+                    charSpan.textContent = text.charAt(i);
+                    element.appendChild(charSpan);
+                    
+                    i++;
+                    setTimeout(type, speed);
+                } else if (callback) {
+                    callback();
+                }
+            }
+            
+            type();
+        }
+        
+        // Fungsi untuk menampilkan halaman
+        function showPage(pageId) {
+            // Sembunyikan semua halaman
+            document.querySelectorAll('.page').forEach(page => {
+                page.classList.remove('active');
+            });
+            
+            // Tampilkan halaman yang dipilih
+            const targetPage = document.getElementById(`page-${pageId}`);
+            if (targetPage) {
+                currentPage = `page-${pageId}`;
+                targetPage.classList.add('active');
+                
+                // Jika halaman kedua, isi dengan pertanyaan yang sesuai
+                if (pageId !== '1' && pageId !== 'final' && questionData[pageId]) {
+                    const messageElement = document.getElementById(`message-${pageId}`);
+                    const optionsElement = document.getElementById(`options-${pageId}`);
+                    
+                    // Reset dan isi pesan
+                    messageElement.innerHTML = '';
+                    typeWriter(questionData[pageId].message, messageElement, 40, () => {
+                        // Setelah animasi selesai, tampilkan opsi
+                        setTimeout(() => {
+                            optionsElement.classList.add('visible');
+                        }, 500);
+                    });
+                    
+                    // Reset opsi
+                    optionsElement.innerHTML = '';
+                    optionsElement.classList.remove('visible');
+                    
+                    // Buat tombol opsi baru
+                    questionData[pageId].options.forEach(option => {
+                        const button = document.createElement('button');
+                        button.className = 'option-btn';
+                        button.textContent = option.text;
+                        button.setAttribute('data-final', option.id);
+                        button.addEventListener('click', function() {
+                            showFinalPage(option.id);
+                        });
+                        optionsElement.appendChild(button);
+                    });
+                }
+                
+                // Jika halaman final
+                if (pageId === 'final') {
+                    const finalMessageElement = document.getElementById('final-message');
+                    finalMessageElement.innerHTML = '';
+                    typeWriter(questionData.final[finalResponse], finalMessageElement, 40);
+                }
+            }
+        }
+        
+        // Variabel untuk menyimpan respons final
+        let finalResponse = "";
+        
+        // Fungsi untuk menampilkan halaman final
+        function showFinalPage(responseId) {
+            finalResponse = responseId;
+            showPage('final');
+        }
+        
+        // Handle option button clicks di halaman 1
+        document.querySelectorAll('#response-options .option-btn').forEach(button => {
+            button.addEventListener('click', function() {
+                const responseId = this.getAttribute('data-response');
+                showPage(responseId);
+            });
+        });
+        
+        // Jalankan animasi saat halaman dimuat
+        document.addEventListener('DOMContentLoaded', function() {
+            // Mulai animasi teks
+            setTimeout(() => {
+                typeWriter(questionData.page1.message, document.getElementById('animated-message'), 40, () => {
+                    // Setelah animasi selesai, tampilkan opsi
+                    setTimeout(() => {
+                        document.getElementById('response-options').classList.add('visible');
+                    }, 500);
+                });
+            }, 1000);
+        });
+    </script>
+</body>
+</html>
