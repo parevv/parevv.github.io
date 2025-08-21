@@ -379,6 +379,57 @@
                 gap: 5px;
             }
         }
+
+        /* Pastikan grid fleksibel */
+.days-grid {
+    display: grid;
+    grid-template-columns: repeat(7, minmax(0, 1fr));
+    gap: clamp(4px, 1vw, 8px);
+}
+
+/* Kontainer jangan meluber */
+.container {
+    padding: 10px;
+    max-width: 100%;
+}
+
+/* Teks di header agar tidak ketiban */
+.header-text {
+    font-size: clamp(1.4rem, 6vw, 2.5rem);
+    line-height: 1.2;
+    word-wrap: break-word;
+}
+
+/* Tombol fleksibel */
+.button-group {
+    flex-wrap: wrap;
+    gap: clamp(8px, 2vw, 15px);
+}
+
+.home-btn .btn {
+    max-width: 90%;
+    text-align: center;
+    font-size: clamp(0.9rem, 4vw, 1.1rem);
+}
+
+/* Tambahan untuk layar sangat kecil */
+@media (max-width: 320px) {
+    .header {
+        padding: 15px 8px;
+        min-height: auto;
+    }
+    .header-content {
+        height: auto;
+    }
+    .btn {
+        padding: 6px 14px;
+        font-size: 0.8rem;
+    }
+    .days-grid {
+        gap: 3px;
+    }
+}
+
     </style>
 </head>
 <body>
