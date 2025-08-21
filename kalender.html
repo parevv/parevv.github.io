@@ -28,12 +28,13 @@
             background: url("images/background.jpg") no-repeat center center fixed;
             background-size: cover;
             display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
             padding: 20px;
             color: #000000;
             position: relative;
-            overflow: hidden;
+            overflow-x: hidden;
             font-family: 'Poppins', sans-serif;
         }
         
@@ -63,17 +64,16 @@
             width: 100%;
             max-width: 500px;
             position: relative;
-            flex: 1;
             display: flex;
             flex-direction: column;
-            justify-content: center;
             align-items: center;
             z-index: 1;
+            margin: 0 auto;
         }
         
         .header {
             text-align: center;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
             padding: 30px 25px;
             width: 100%;
             background: rgba(255, 253, 255, 0.9);
@@ -81,8 +81,6 @@
             border-radius: 20px;
             border: 1px solid rgba(255, 163, 163, 0.3);
             box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
-            position: relative;
-            min-height: 140px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -91,7 +89,6 @@
         .header-content {
             position: relative;
             width: 100%;
-            height: 80px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -104,10 +101,6 @@
             background: linear-gradient(to right, #d66565, #ff477e);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
             text-align: center;
             width: 100%;
             transition: opacity 0.8s ease;
@@ -122,6 +115,10 @@
         
         #text-final {
             opacity: 0;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
         }
         
         .calendar {
@@ -131,8 +128,6 @@
             border: 1px solid rgba(255, 255, 255, 0.3);
             box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
             padding: 30px;
-            margin-bottom: 20px;
-            position: relative;
             width: 100%;
             overflow: hidden;
         }
@@ -309,11 +304,6 @@
             
             .header {
                 padding: 25px 15px;
-                min-height: 130px;
-            }
-            
-            .header-content {
-                height: 70px;
             }
             
             .button-group {
@@ -322,10 +312,6 @@
             
             .btn {
                 padding: 10px 20px;
-            }
-            
-            .home-btn .btn {
-                padding: 10px 30px;
             }
         }
         
@@ -336,11 +322,6 @@
             
             .header {
                 padding: 20px 10px;
-                min-height: 120px;
-            }
-            
-            .header-content {
-                height: 60px;
             }
             
             .btn {
@@ -354,54 +335,50 @@
         }
 
         /* Pastikan grid fleksibel */
-.days-grid {
-    display: grid;
-    grid-template-columns: repeat(7, minmax(0, 1fr));
-    gap: clamp(4px, 1vw, 8px);
-}
+        .days-grid {
+            display: grid;
+            grid-template-columns: repeat(7, minmax(0, 1fr));
+            gap: clamp(4px, 1vw, 8px);
+        }
 
-/* Kontainer jangan meluber */
-.container {
-    padding: 10px;
-    max-width: 100%;
-}
+        /* Kontainer jangan meluber */
+        .container {
+            padding: 10px;
+            max-width: 100%;
+        }
 
-/* Teks di header agar tidak ketiban */
-.header-text {
-    font-size: clamp(1.4rem, 6vw, 2.5rem);
-    line-height: 1.2;
-    word-wrap: break-word;
-}
+        /* Teks di header agar tidak ketiban */
+        .header-text {
+            font-size: clamp(1.4rem, 6vw, 2.5rem);
+            line-height: 1.2;
+            word-wrap: break-word;
+        }
 
-/* Tombol fleksibel */
-.button-group {
-    flex-wrap: wrap;
-    gap: clamp(8px, 2vw, 15px);
-}
+        /* Tombol fleksibel */
+        .button-group {
+            flex-wrap: wrap;
+            gap: clamp(8px, 2vw, 15px);
+        }
 
-.home-btn .btn {
-    max-width: 90%;
-    text-align: center;
-    font-size: clamp(0.9rem, 4vw, 1.1rem);
-}
+        .home-btn .btn {
+            max-width: 90%;
+            text-align: center;
+            font-size: clamp(0.9rem, 4vw, 1.1rem);
+        }
 
-/* Tambahan untuk layar sangat kecil */
-@media (max-width: 320px) {
-    .header {
-        padding: 15px 8px;
-        min-height: auto;
-    }
-    .header-content {
-        height: auto;
-    }
-    .btn {
-        padding: 6px 14px;
-        font-size: 0.8rem;
-    }
-    .days-grid {
-        gap: 3px;
-    }
-}
+        /* Tambahan untuk layar sangat kecil */
+        @media (max-width: 320px) {
+            .header {
+                padding: 15px 8px;
+            }
+            .btn {
+                padding: 6px 14px;
+                font-size: 0.8rem;
+            }
+            .days-grid {
+                gap: 3px;
+            }
+        }
 
     </style>
 </head>
@@ -415,7 +392,7 @@
             <div class="header">
                 <div class="header-content">
                     <h1 id="text-initial" class="header-text">24 August</h1>
-                    <h1 id="text-final" class="header-text">yhahaha mkinnn tuwaaaaa</h1>
+                    <h1 id="text-final" class="header-text">yhaha mkinn tuwaaa</h1>
                 </div>
             </div>
             
@@ -491,8 +468,6 @@
                     <a href="hadiah.html" class="btn btn-outline" id="btn-hadiah" style="animation-delay: 7.1s">Hadiah</a>
                 </div>
             </div>
-            
-            <!-- Tombol Home yang tetap di tengah -->
         </div>
     </div>
 
