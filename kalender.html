@@ -53,16 +53,17 @@
       padding: 10px;
     }
 
-    .header {
-      text-align: center;
+    /* Glassmorphism Header & Calendar */
+    .header, .calendar {
+      background: rgba(255, 255, 255, 0.15);
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      backdrop-filter: blur(15px);
+      -webkit-backdrop-filter: blur(15px);
+      border-radius: 20px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
       margin-bottom: 20px;
       padding: 30px 25px;
       width: 100%;
-      background: rgba(255,253,255,0.9);
-      backdrop-filter: blur(90px);
-      border-radius: 20px;
-      border: 1px solid rgba(255,163,163,0.3);
-      box-shadow: 0 15px 35px rgba(0,0,0,0.1);
     }
 
     .header-content { position: relative; width: 100%; }
@@ -82,17 +83,6 @@
       position: absolute;
       top: 0; left: 0;
       width: 100%;
-    }
-
-    .calendar {
-      background: rgba(255,253,255,0.9);
-      backdrop-filter: blur(90px);
-      border-radius: 20px;
-      border: 1px solid rgba(255,255,255,0.3);
-      box-shadow: 0 15px 35px rgba(0,0,0,0.1);
-      padding: 30px;
-      width: 100%;
-      margin-bottom: 20px;
     }
 
     .month {
@@ -195,22 +185,32 @@
       flex-wrap: wrap;
     }
 
-    /* Tombol Kembali */
+    /* Tombol Kembali Glass */
     .back-container { display: flex; justify-content: center; margin-top: 10px; }
     .back-btn {
-      background-color: #fff;
+      background: rgba(255, 255, 255, 0.15);
+      border: 2px solid rgba(255, 255, 255, 0.25);
       color: #ff477e;
-      border: 2px solid #fff;
+      border-radius: 25px;
+      padding: 12px 25px;
+      font-weight: 600;
+      font-size: clamp(0.9rem, 3vw, 1rem);
+      text-decoration: none;
+      transition: all 0.3s ease;
+      display: inline-block;
+      backdrop-filter: blur(15px);
+      -webkit-backdrop-filter: blur(15px);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
       opacity: 0;
       transform: translateY(20px);
       animation: buttonFadeInUp 0.6s forwards;
       animation-delay: 7.4s;
     }
     .back-btn:hover {
-      background-color: #ffe6ef;
+      background: rgba(255, 255, 255, 0.25);
       color: #d23369;
       transform: translateY(-2px);
-      box-shadow: 0 6px 20px rgba(255,71,126,0.3);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
     }
 
     @keyframes fadeInUp {
