@@ -133,7 +133,7 @@ if (hour >= 5 && hour < 12) {
   
   // Jalankan efek party popper bersamaan dengan munculnya tombol
   // (setelah animasi teks selesai + 2 detik)
-  const textLength = "happy birthday\nayraa!".length;
+  const textLength = "happy birthday\nwokk!".length;
   const typingSpeed = 60;
   const typingDuration = (textLength * typingSpeed);
   
